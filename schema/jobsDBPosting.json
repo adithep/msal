@@ -1,0 +1,21 @@
+{
+  "namespace": "salary.josbDBPosting",
+  "type": "record",
+  "name": "josbDBPosting",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "type", "type": "string"},
+    {"name": "attributes", "type": {
+      "name": "Attributes", "type": "record", "fields": [
+        {"name": "address",  "type": "string"},
+        {"name": "baseSalary",  "type": "string"},
+        {"name": "datePosted",  "type": "string"},
+        {"name": "description",  "type": "string"},
+        {"name": "hiringOrganization",  "type": "string"},
+        {"name": "jobLocation",  "type": "string"},
+        {"name": "name",  "type": "string"},
+        {"name": "title",  "type": "string"}
+      ]
+    }}
+  ]
+}

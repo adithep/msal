@@ -1,0 +1,226 @@
+{
+  "paragraphs": [
+    {
+      "text": "%dep\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 7:15:24 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cconsole\u003e:11: error: object JsonApiSupport is not a member of package com.qvantel.jsonapi\n       import com.qvantel.jsonapi.JsonApiSupport\n              ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502204975676_1537303774",
+      "id": "20170808-150935_1032131015",
+      "dateCreated": "Aug 8, 2017 3:09:35 PM",
+      "dateStarted": "Aug 9, 2017 6:17:17 AM",
+      "dateFinished": "Aug 9, 2017 6:17:35 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import com.github.benfradet.spark.kafka.writer._",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 6:11:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 187.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport com.github.benfradet.spark.kafka.writer._\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502205031635_-1103719946",
+      "id": "20170808-151031_1963878287",
+      "dateCreated": "Aug 8, 2017 3:10:31 PM",
+      "dateStarted": "Aug 9, 2017 6:11:29 AM",
+      "dateFinished": "Aug 9, 2017 6:11:50 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import com.qvantel.jsonapi._\nimport com.qvantel.jsonapi\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 7:16:26 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport com.qvantel.jsonapi._\n\nimport com.qvantel.jsonapi\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502256986230_1645584989",
+      "id": "20170809-053626_1662255052",
+      "dateCreated": "Aug 9, 2017 5:36:26 AM",
+      "dateStarted": "Aug 9, 2017 7:16:26 AM",
+      "dateFinished": "Aug 9, 2017 7:16:27 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "final case class Company(id: String, name: String)\nval acme \u003d Company(\"1\", \"acme\")\n\nval json \u003d rawOne(acme)(com.qvantel.jsonapi.jsonApiWriter)\njson",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 8:30:03 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nwarning: there was one unchecked warning; re-run with -unchecked for details\n\ndefined class Company\n\nacme: Company \u003d Company(1,acme)\n\n\n\n\n\u003cconsole\u003e:34: error: could not find implicit value for parameter e: com.qvantel.jsonapi.ResourceType[Company]\nError occurred in an application involving default arguments.\n       val json \u003d rawOne(acme)(com.qvantel.jsonapi.jsonApiWriter)\n                                                   ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502259654548_-1880435130",
+      "id": "20170809-062054_1689138481",
+      "dateCreated": "Aug 9, 2017 6:20:54 AM",
+      "dateStarted": "Aug 9, 2017 8:30:03 AM",
+      "dateFinished": "Aug 9, 2017 8:30:07 AM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "JsonApiSupport.jsonApiOneMarshaller",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 6:36:45 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nres6: com.qvantel.jsonapi.spray.JsonApiSupport.type \u003d com.qvantel.jsonapi.spray.JsonApiSupport$@8720a71\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502259723793_-861761249",
+      "id": "20170809-062203_953984950",
+      "dateCreated": "Aug 9, 2017 6:22:03 AM",
+      "dateStarted": "Aug 9, 2017 6:32:50 AM",
+      "dateFinished": "Aug 9, 2017 6:32:51 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "com.qvantel.jsonapi.JsonApiWriter",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 8:29:29 AM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1502260370260_1214307711",
+      "id": "20170809-063250_2124992341",
+      "dateCreated": "Aug 9, 2017 6:32:50 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "yes",
+  "id": "2CRNMZPV7",
+  "angularObjects": {
+    "2CQAPU3KK:shared_process": [],
+    "2CPED19YM:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

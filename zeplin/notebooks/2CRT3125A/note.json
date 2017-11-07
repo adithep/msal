@@ -1,0 +1,100 @@
+{
+  "paragraphs": [
+    {
+      "text": "import com.github.jasminb.jsonapi._\nimport com.github.jasminb.jsonapi.annotations._\nimport scala.annotation.meta.{field, param}\n\ntype Type \u003d com.github.jasminb.jsonapi.annotations.Type\ntype Id \u003d com.github.jasminb.jsonapi.annotations.Id \ntype field \u003d scala.annotation.meta.field\ntype param \u003d scala.annotation.meta.param\n\n@Type(\"jobsDBPosting\")\ncase class JobsDBPosting (\n             @(Id @field) id: String,\n             address: String,\n             baseSalary: String,\n             datePosted: String,\n             description: String,\n             hiringOrganization: String,\n             jobLocation: String,\n             name: String,\n             title: String\n           ) {\n  def this() \u003d this(\"2\", \"arma\", \"kk\", \"kk\", \"mm\", \"66\", \"77\", \"88\", \"99\")\n  def getAddress: String \u003d address\n  def getBaseSalary: String \u003d baseSalary\n  def getDatePosted: String \u003d datePosted\n  def getDescription: String \u003d description\n  def getHiringOrganization: String \u003d hiringOrganization\n  def getJobLocation: String \u003d jobLocation\n  def getName: String \u003d name\n  def getTitle: String \u003d title\n}\n\n",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 3:02:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport com.github.jasminb.jsonapi._\n\nimport com.github.jasminb.jsonapi.annotations._\n\nimport scala.annotation.meta.{field, param}\n\ndefined type alias Type\n\ndefined type alias Id\n\ndefined type alias field\n\ndefined type alias param\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1502290812720_1464048847",
+      "id": "20170809-150012_1999185753",
+      "dateCreated": "Aug 9, 2017 3:00:12 PM",
+      "dateStarted": "Aug 9, 2017 3:02:24 PM",
+      "dateFinished": "Aug 9, 2017 3:02:30 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "case class Yes (id: String)",
+      "user": "anonymous",
+      "dateUpdated": "Aug 9, 2017 3:04:13 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1502290817622_2101593098",
+      "id": "20170809-150017_892109518",
+      "dateCreated": "Aug 9, 2017 3:00:17 PM",
+      "dateStarted": "Aug 9, 2017 3:04:13 PM",
+      "dateFinished": "Aug 9, 2017 3:04:13 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1502290944395_-78627321",
+      "id": "20170809-150224_1566812306",
+      "dateCreated": "Aug 9, 2017 3:02:24 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "me",
+  "id": "2CRT3125A",
+  "angularObjects": {
+    "2CQAPU3KK:shared_process": [],
+    "2CRN7J1V5:shared_process": [],
+    "2CSTFVNKN:shared_process": [],
+    "2CRUEQRM7:shared_process": [],
+    "2CPGX4RNZ:shared_process": [],
+    "2CPCBMDNB:shared_process": [],
+    "2CRCUPMM1:shared_process": [],
+    "2CRWNN5HG:shared_process": [],
+    "2CPED19YM:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

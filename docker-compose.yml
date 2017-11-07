@@ -1,0 +1,256 @@
+version: '3'
+
+services:
+  scrape-jobsdb:
+    image: salary/scraper
+    build: ./scraper
+    volumes:
+      - ./scraper:/usr/src/app
+      - ./zeplin/data:/data
+    networks:
+      - net
+      - default
+  notebook:
+    image: jupyter/datascience-notebook
+    volumes:
+      - ./notebooks:/usr/src/app/notebooks
+      - ./data:/usr/src/app/data
+    working_dir: /usr/src/app/notebooks
+    ports:
+      - 8888:8888
+  mongodb-create-db:
+    image: mongo
+    networks:
+      - net
+      - default
+    depends_on:
+      - mongo
+    volumes:
+      - ./mongo:/mongo
+    working_dir: /mongo
+    command: >
+      bash ./create-jobsdb-db.sh
+  mongo-jobs-writer-create-db:
+    image: mongo
+    networks:
+      - net
+      - default
+    depends_on:
+      - mongo-jobs-writer
+    volumes:
+      - ./mongo:/mongo
+    working_dir: /mongo
+    command: >
+      bash ./create-mongo-jobs-writer-db.sh
+  post-mongodb-connect:
+    image: buildpack-deps:curl
+    networks:
+      - net
+      - default
+    depends_on:
+      - connect-cluster
+    volumes:
+      - ./connector:/connector
+    working_dir: /connector
+    command: >
+      bash ./mongo-job-db-posting.sh
+  postSchema:
+    image: buildpack-deps:curl
+    networks:
+      - net
+      - default
+    depends_on:
+      - schemaRegistry
+    volumes:
+      - ./schema:/schema
+    working_dir: /schema
+    command: >
+      bash ./post.sh
+  postingProcessor:
+    build: ./postingProcessor
+    image: salary/postingprocessor
+    depends_on:
+      - kafka
+    volumes:
+     - ./postingProcessor:/App
+     - target:/App/target
+     - project:/App/project
+     - ./zeplin/data:/data
+    networks:
+      - net
+      - default
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  zookeeper1:
+    image: zookeeper
+    restart: always
+    networks:
+      - net
+      - default
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+    ports:
+      - "2181:2181"
+  zookeeper2:
+    image: zookeeper
+    restart: always
+    networks:
+      - net
+      - default
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+  zookeeper3:
+    image: zookeeper
+    restart: always
+    networks:
+      - net
+      - default
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zookeeper1:2888:3888 server.2=zookeeper2:2888:3888 server.3=zookeeper3:2888:3888
+  kafka3:
+    image: cgswong/confluent-kafka
+    networks:
+      - net
+      - default
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      kafka_broker_id: 1
+      kafka_num_partitions: 1
+      kafka_zookeeper_connect: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+
+  mongo:
+    image: mongo
+    networks:
+      - net
+      - default
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/data/db
+  mongo-jobs-writer:
+    image: mongo
+    networks:
+      - net
+      - default
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-jobs-writer:/data/db
+  connect-ui:
+    image: landoop/kafka-connect-ui
+    networks:
+      - net
+      - default
+    depends_on:
+      - connect-cluster
+    ports:
+      - "8085:8000"
+    environment:
+      CONNECT_URL: http://connect-cluster:8083
+  connect-cluster:
+    image: landoop/fast-data-dev-connect-cluster
+    networks:
+      - net
+      - default
+    depends_on:
+      - schemaRegistry
+    ports:
+      - "8083:8083"
+    environment:
+      ID: "01"
+      BS: kafka:9092
+      ZK: zookeeper:2181
+      SR: http://schemaRegistry:8081
+      HOST: connect-cluster
+
+  kafka:
+    image: confluentinc/cp-kafka:3.2.2
+    networks:
+      - net
+      - default
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka-data:/var/lib/kafka/data"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+  kafka2:
+    build: ./kafka
+    image: sal/kafka
+    networks:
+      - net
+      - default
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    command: >
+      dumb-init bash -c "kafka-server-start.sh /usr/local/kafka/config/server.properties"
+    volumes:
+      - "./kafka/config:/usr/local/kafka/config"
+      - "./kafka/data:/usr/local/kafka/data"
+    ports:
+      - "9092:9092"
+  schemaRegistry:
+    image: confluentinc/cp-schema-registry:3.2.2
+    hostname: schema_registry
+    networks:
+      - net
+      - default
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaRegistry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+  kafka1:
+    image: wurstmeister/kafka
+    networks:
+      - net
+      - default
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      # HOSTNAME_COMMAND: >
+      #   ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk "{print $2}"
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_CREATE_TOPICS: "jobsDBPosting:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+    volumes:
+      - ./kafka/data:/kafka
+      - /var/run/docker.sock:/var/run/docker.sock
+
+
+networks:
+  net:
+
+volumes:
+  target:
+  project:
+  data:
+  kafka-data:
+  mongo-jobs-writer:
+
